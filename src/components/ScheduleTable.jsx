@@ -88,7 +88,7 @@ function SectionHeader({ title, isJudo }) {
   )
 }
 
-export default function ScheduleTable() {
+export default function ScheduleTable({ schedule = SCHEDULE }) {
   return (
     <section id="horaires" className="bg-zinc-950 py-24 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
@@ -105,7 +105,7 @@ export default function ScheduleTable() {
 
         <div className="space-y-14">
           {/* Judo pleine largeur */}
-          {SCHEDULE.filter(s => s.isJudo).map((section) => (
+          {schedule.filter(s => s.isJudo).map((section) => (
             <div key={section.discipline}>
               <SectionHeader title={section.discipline.toUpperCase()} isJudo={section.isJudo} />
 
@@ -151,7 +151,7 @@ export default function ScheduleTable() {
 
           {/* Pilates + Cardio côte à côte */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {SCHEDULE.filter(s => !s.isJudo).map((section) => (
+            {schedule.filter(s => !s.isJudo).map((section) => (
               <div key={section.discipline}>
                 <SectionHeader title={section.discipline.toUpperCase()} isJudo={false} />
                 <div>

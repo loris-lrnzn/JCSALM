@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Carousel from '@/components/Carousel'
-import Tarifs from '@/components/Tarifs'
+import Tarifs, { PILATES_ROWS } from '@/components/Tarifs'
+import { getGalerie, getTarifs } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 import Footer from '@/components/Footer'
 
 export const metadata = {
@@ -19,7 +21,20 @@ const SLIDES = [
   { src: '/pilates.png', alt: 'Cours de Pilates', caption: 'Cours de Pilates sur le tatami — renforcement et souplesse.' },
 ]
 
-export default function PilatesPage() {
+export default async function PilatesPage() {
+  const [galerie, tarifs] = await Promise.all([
+    getGalerie('Pilates').catch(() => []),
+    getTarifs().catch(() => []),
+  ])
+  const slides = galerie.map(g => ({
+    src: urlFor(g.photo.asset).width(1400).url(),
+    alt: g.photo.alt || '',
+    caption: g.photo.legende || '',
+  }))
+  const tarifsPilates = tarifs.find(t => t.discipline === 'Pilates')
+  const pilatesRows = tarifsPilates
+    ? tarifsPilates.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
+    : PILATES_ROWS
   return (
     <main className="bg-zinc-950 min-h-screen">
       <Navbar />
@@ -92,7 +107,7 @@ export default function PilatesPage() {
       </section>
 
       {/* Carousel */}
-      <Carousel slides={SLIDES} />
+      <Carousel slides={slides.length > 0 ? slides : SLIDES} />
 
       {/* Horaires */}
       <section className="py-24 px-6 lg:px-8 border-b border-zinc-800">
@@ -131,12 +146,7 @@ export default function PilatesPage() {
         </div>
       </section>
 
-      <Tarifs
-        discipline="Pilates"
-        rows={[
-          { label: 'Cours collectif', price: null },
-        ]}
-      />
+      <Tarifs discipline="Pilates" rows={pilatesRows} />
 
       <Footer />
     </main>

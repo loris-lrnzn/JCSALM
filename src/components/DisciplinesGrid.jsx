@@ -1,37 +1,45 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { urlFor } from '@/lib/sanity'
 
-const DISCIPLINES = [
-  {
-    index: '01',
-    name: 'Judo',
-    slug: 'judo',
-    description:
-      "Art martial japonais fondé sur les principes de la souplesse et de l'efficacité. Techniques de projection, de contrôle au sol et de respect du partenaire.",
-    days: 'Mercredi · Vendredi',
-    photo: '/judo.png',
-  },
-  {
-    index: '02',
-    name: 'Pilates',
-    slug: 'pilates',
-    description:
-      'Renforcement musculaire profond axé sur la posture, la respiration et la souplesse. Idéal en pratique autonome ou en complément du judo.',
-    days: 'Mardi · Jeudi · Samedi',
-    photo: '/pilates.png',
-  },
-  {
-    index: '03',
-    name: 'Cardio-Training',
-    slug: 'cardio-training',
-    description:
-      'Mise en condition physique générale. Endurance, tonicité et travail cardiovasculaire pour tous les niveaux.',
-    days: 'Lundi',
-    photo: '/cardio.png',
-  },
-]
 
-export default function DisciplinesGrid() {
+export default function DisciplinesGrid({ photos = {} }) {
+  const photoMap = {
+    judo:   photos.judo?.asset   ? urlFor(photos.judo.asset).width(800).url()   : '/judo.png',
+    pilates: photos.pilates?.asset ? urlFor(photos.pilates.asset).width(800).url() : '/pilates.png',
+    cardio: photos.cardio?.asset  ? urlFor(photos.cardio.asset).width(800).url()  : '/cardio.png',
+  }
+
+  const DISCIPLINES = [
+    {
+      index: '01',
+      name: 'Judo',
+      slug: 'judo',
+      description:
+        "Art martial japonais fondé sur les principes de la souplesse et de l'efficacité. Techniques de projection, de contrôle au sol et de respect du partenaire.",
+      days: 'Mercredi · Vendredi',
+      photo: photoMap.judo,
+    },
+    {
+      index: '02',
+      name: 'Pilates',
+      slug: 'pilates',
+      description:
+        'Renforcement musculaire profond axé sur la posture, la respiration et la souplesse. Idéal en pratique autonome ou en complément du judo.',
+      days: 'Mardi · Jeudi · Samedi',
+      photo: photoMap.pilates,
+    },
+    {
+      index: '03',
+      name: 'Cardio-Training',
+      slug: 'cardio-training',
+      description:
+        'Mise en condition physique générale. Endurance, tonicité et travail cardiovasculaire pour tous les niveaux.',
+      days: 'Lundi',
+      photo: photoMap.cardio,
+    },
+  ]
+
   return (
     <section id="disciplines" className="bg-zinc-950 py-24 px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">

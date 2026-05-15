@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Carousel from '@/components/Carousel'
-import Tarifs from '@/components/Tarifs'
+import Tarifs, { CARDIO_ROWS } from '@/components/Tarifs'
+import { getGalerie, getTarifs } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 import Footer from '@/components/Footer'
 
 export const metadata = {
@@ -17,7 +19,20 @@ const SLIDES = [
   { src: '/cardio.png', alt: 'Cardio-Training', caption: 'Séance de Cardio-Training — battle ropes sur le tatami de Senones.' },
 ]
 
-export default function CardioPage() {
+export default async function CardioPage() {
+  const [galerie, tarifs] = await Promise.all([
+    getGalerie('Cardio-Training').catch(() => []),
+    getTarifs().catch(() => []),
+  ])
+  const slides = galerie.map(g => ({
+    src: urlFor(g.photo.asset).width(1400).url(),
+    alt: g.photo.alt || '',
+    caption: g.photo.legende || '',
+  }))
+  const tarifsCardio = tarifs.find(t => t.discipline === 'Cardio-Training')
+  const cardioRows = tarifsCardio
+    ? tarifsCardio.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
+    : CARDIO_ROWS
   return (
     <main className="bg-zinc-950 min-h-screen">
       <Navbar />
@@ -90,7 +105,7 @@ export default function CardioPage() {
       </section>
 
       {/* Carousel */}
-      <Carousel slides={SLIDES} />
+      <Carousel slides={slides.length > 0 ? slides : SLIDES} />
 
       {/* Horaires */}
       <section className="py-24 px-6 lg:px-8 border-b border-zinc-800">
@@ -129,12 +144,7 @@ export default function CardioPage() {
         </div>
       </section>
 
-      <Tarifs
-        discipline="Cardio-Training"
-        rows={[
-          { label: 'Cours collectif', price: null },
-        ]}
-      />
+      <Tarifs discipline="Cardio-Training" rows={cardioRows} />
 
       <Footer />
     </main>

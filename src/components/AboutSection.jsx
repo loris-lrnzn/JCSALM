@@ -1,9 +1,10 @@
 import Image from 'next/image'
+import { urlFor } from '@/lib/sanity'
 
 const STATS = [
   { value: '+200', label: 'Licenciés'      },
-  { value: '—',   label: 'Ceinture Noire' },
-  { value: '1982Bon', label: 'Fondation'     },
+  { value: '26',   label: 'Ceinture Noire' },
+  { value: '1982', label: 'Fondation'     },
 ]
 
 const COACHES = [
@@ -18,7 +19,18 @@ const TIMELINE = [
   { year: '2024', label: 'Label France Judo Argent'     },
 ]
 
-export default function AboutSection() {
+export default function AboutSection({ parametres = null, photo = null }) {
+  const annee       = parametres?.annee_fondation     || STATS.find(s => s.label === 'Fondation')?.value
+  const nbLicencies = parametres?.nb_licencies        || STATS.find(s => s.label === 'Licenciés')?.value
+  const nbCeintures = parametres?.nb_ceintures_noires || STATS.find(s => s.label === 'Ceinture Noire')?.value
+  const adresse     = parametres?.adresse             || 'Dojo de Senones, Rue du Breuil\n88210 Senones'
+
+  const stats = [
+    { value: nbLicencies, label: 'Licenciés'      },
+    { value: nbCeintures, label: 'Ceinture Noire' },
+    { value: annee,       label: 'Fondation'      },
+  ]
+
   return (
     <section className="bg-zinc-950 py-16 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
@@ -37,7 +49,12 @@ export default function AboutSection() {
 
           {/* Image */}
           <div className="relative lg:col-span-1 overflow-hidden" style={{ height: '260px' }}>
-            <Image src="/dojo.png" alt="Le dojo de Senones" fill className="object-cover" />
+            <Image
+              src={photo?.asset ? urlFor(photo.asset).width(800).url() : '/dojo.png'}
+              alt="Le dojo de Senones"
+              fill
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-zinc-950/30" />
           </div>
 
@@ -51,14 +68,13 @@ export default function AboutSection() {
             </p>
             <div className="mt-6 pt-6 border-t border-zinc-800">
               <p className="text-xs tracking-widest uppercase text-zinc-600 mb-1">Adresse</p>
-              <p className="text-sm text-zinc-400">Dojo de Senones, Rue du Breuil</p>
-              <p className="text-sm text-zinc-500">88210 Senones</p>
+              <p className="text-sm text-zinc-400 whitespace-pre-line">{adresse}</p>
             </div>
           </div>
 
           {/* Stats */}
           <div className="lg:col-span-1 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-0 lg:divide-y lg:divide-zinc-800/50">
-            {STATS.map((s) => (
+            {stats.map((s) => (
               <div key={s.label} className="py-4 flex items-baseline gap-3">
                 <span className="font-display text-4xl text-zinc-100 tabular-nums">{s.value}</span>
                 <span className="text-xs tracking-widest uppercase text-zinc-600">{s.label}</span>

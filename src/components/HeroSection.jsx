@@ -1,6 +1,9 @@
 import Image from 'next/image'
+import { urlFor } from '@/lib/sanity'
 
-export default function HeroSection() {
+export default function HeroSection({ photo = null }) {
+  const src = photo?.asset ? urlFor(photo.asset).width(1920).url() : '/hero.png'
+
   return (
     <section
       className="relative overflow-hidden pt-20"
@@ -8,7 +11,7 @@ export default function HeroSection() {
     >
       {/* Photo */}
       <Image
-        src="/hero.png"
+        src={src}
         alt="Cours de judo — Judo Club de Salm, Senones"
         fill
         className="object-cover object-center"

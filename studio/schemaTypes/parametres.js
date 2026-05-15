@@ -1,0 +1,45 @@
+export const parametres = {
+  name: 'parametres',
+  title: 'Paramètres du site',
+  type: 'document',
+  __experimental_actions: ['update', 'publish'],
+  fields: [
+    { name: 'adresse',  title: 'Adresse',    type: 'string' },
+    { name: 'email',    title: 'Email',      type: 'string' },
+    { name: 'telephone',title: 'Téléphone',  type: 'string' },
+    { name: 'facebook', title: 'URL Facebook', type: 'url'  },
+    { name: 'annee_fondation', title: 'Année de fondation', type: 'string' },
+    { name: 'nb_licencies',    title: 'Nombre de licenciés', type: 'string' },
+    { name: 'nb_ceintures_noires', title: 'Ceintures noires', type: 'string' },
+    {
+      name: 'photo_hero',
+      title: 'Photo Hero (page d\'accueil)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'photo_about',
+      title: 'Photo Le Club (section about)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'photo_judo',
+      title: 'Photo Judo (carte discipline)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'photo_pilates',
+      title: 'Photo Pilates (carte discipline)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'photo_cardio',
+      title: 'Photo Cardio-Training (carte discipline)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+  ],
+}

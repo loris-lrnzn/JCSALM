@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Carousel from '@/components/Carousel'
-import Tarifs from '@/components/Tarifs'
+import Tarifs, { JUDO_ROWS } from '@/components/Tarifs'
 import Footer from '@/components/Footer'
+import { getGalerie, getTarifs } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 
 export const metadata = {
   title: 'Judo — Judo Club de Salm',
@@ -41,7 +43,20 @@ const NIVEAUX = [
   },
 ]
 
-export default function JudoPage() {
+export default async function JudoPage() {
+  const [galerie, tarifs] = await Promise.all([
+    getGalerie('Judo').catch(() => []),
+    getTarifs().catch(() => []),
+  ])
+  const slides = galerie.map(g => ({
+    src: urlFor(g.photo.asset).width(1400).url(),
+    alt: g.photo.alt || '',
+    caption: g.photo.legende || '',
+  }))
+  const tarifsJudo = tarifs.find(t => t.discipline === 'Judo')
+  const judoRows = tarifsJudo
+    ? tarifsJudo.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
+    : JUDO_ROWS
   return (
     <main className="bg-zinc-950 min-h-screen">
       <Navbar />
@@ -124,7 +139,7 @@ export default function JudoPage() {
       </section>
 
       {/* Carrousel photos */}
-      <Carousel />
+      <Carousel slides={slides.length > 0 ? slides : undefined} />
 
       {/* Niveaux & Horaires */}
       <section className="py-24 px-6 lg:px-8 border-b border-zinc-800">
@@ -166,14 +181,7 @@ export default function JudoPage() {
         </div>
       </section>
 
-      <Tarifs
-        discipline="Judo"
-        rows={[
-          { label: 'Enfant',  price: null },
-          { label: 'Adulte',  price: null },
-          { label: 'Famille', price: null },
-        ]}
-      />
+      <Tarifs discipline="Judo" rows={judoRows} />
 
       <Footer />
     </main>
