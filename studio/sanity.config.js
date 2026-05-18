@@ -3,8 +3,8 @@ import { structureTool } from 'sanity/structure'
 import { schemaTypes } from './schemaTypes'
 
 const DISCIPLINES = [
-  { label: 'Judo',           id: 'judo' },
-  { label: 'Pilates',        id: 'pilates' },
+  { label: 'Judo',            id: 'judo' },
+  { label: 'Pilates',         id: 'pilates' },
   { label: 'Cardio-Training', id: 'cardiotraining' },
 ]
 
@@ -39,19 +39,48 @@ export default defineConfig({
                     )
                   )
               ),
+            S.listItem()
+              .title('Galerie')
+              .child(
+                S.list()
+                  .title('Galerie par discipline')
+                  .items(
+                    DISCIPLINES.map(({ label, id }) =>
+                      S.listItem()
+                        .title(label)
+                        .id(`galerie-${id}`)
+                        .child(
+                          S.document()
+                            .title(label)
+                            .schemaType('galerie')
+                            .documentId(`galerie-${id}`)
+                            .initialValueTemplate('galerie-discipline', { discipline: label })
+                        )
+                    )
+                  )
+              ),
             S.divider(),
-            ...S.documentTypeListItems().filter((item) => item.getId() !== 'horaires'),
+            ...S.documentTypeListItems().filter(
+              (item) => !['horaires', 'galerie'].includes(item.getId())
+            ),
           ]),
     }),
   ],
   schema: {
     types: schemaTypes,
     templates: (prev) => [
-      ...prev.filter((t) => t.id !== 'horaires'),
+      ...prev.filter((t) => !['horaires', 'galerie'].includes(t.id)),
       {
         id: 'horaires-discipline',
         title: 'Horaires',
         schemaType: 'horaires',
+        parameters: [{ name: 'discipline', title: 'Discipline', type: 'string' }],
+        value: ({ discipline }) => ({ discipline }),
+      },
+      {
+        id: 'galerie-discipline',
+        title: 'Galerie',
+        schemaType: 'galerie',
         parameters: [{ name: 'discipline', title: 'Discipline', type: 'string' }],
         value: ({ discipline }) => ({ discipline }),
       },

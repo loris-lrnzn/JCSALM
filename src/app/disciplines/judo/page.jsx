@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Carousel from '@/components/Carousel'
 import Tarifs, { JUDO_ROWS } from '@/components/Tarifs'
@@ -48,10 +47,10 @@ export default async function JudoPage() {
     getGalerie('Judo').catch(() => []),
     getTarifs().catch(() => []),
   ])
-  const slides = galerie.map(g => ({
-    src: urlFor(g.photo.asset).width(1400).url(),
-    alt: g.photo.alt || '',
-    caption: g.photo.legende || '',
+  const slides = (galerie || []).map(g => ({
+    src: urlFor(g.asset).width(1400).url(),
+    alt: g.alt || '',
+    caption: g.legende || '',
   }))
   const tarifsJudo = tarifs.find(t => t.discipline === 'Judo')
   const judoRows = tarifsJudo
@@ -64,12 +63,6 @@ export default async function JudoPage() {
       {/* Hero */}
       <section className="bg-zinc-950 px-6 lg:px-8 pt-32 pb-12">
         <div className="max-w-7xl mx-auto">
-          <Link
-            href="/"
-            className="inline-block text-xs tracking-widest uppercase text-zinc-600 hover:text-zinc-400 transition-colors duration-200 mb-8"
-          >
-            ← Accueil
-          </Link>
           <p className="text-xs tracking-widest uppercase text-club-red mb-3">
             Art martial · Senones
           </p>
@@ -142,7 +135,7 @@ export default async function JudoPage() {
       <Carousel slides={slides.length > 0 ? slides : undefined} />
 
       {/* Niveaux & Horaires */}
-      <section className="py-24 px-6 lg:px-8 border-b border-zinc-800">
+      <section id="horaires" className="py-24 px-6 lg:px-8 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-baseline justify-between border-b border-zinc-800 pb-6 mb-12">
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100">

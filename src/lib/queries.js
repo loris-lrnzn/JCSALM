@@ -43,15 +43,28 @@ export async function getPartenaires() {
 }
 
 export async function getGalerie(discipline) {
-  const filter = discipline
-    ? `*[_type == "galerie" && discipline == "${discipline}"]`
-    : `*[_type == "galerie"]`
-  return client.fetch(`
-    ${filter} | order(ordre asc) {
-      photo { asset, alt, legende },
-      discipline
-    }
-  `)
+  const id = discipline.toLowerCase().replace('-', '')
+  return client.fetch(
+    `*[_type == "galerie" && _id == $id][0].photos[] { asset, alt, legende }`,
+    { id: `galerie-${id}` }
+  )
+}
+
+export async function getActualites({ limit } = {}) {
+  const slice = limit ? `[0...${limit}]` : ''
+  return client.fetch(
+    `*[_type == "actualites"] | order(date desc)${slice} {
+      _id, titre, date, discipline, texte,
+      photo { asset },
+      lien_url, lien_label
+    }`,
+    {},
+    { cache: 'no-store' }
+  )
+}
+
+export async function countActualites() {
+  return client.fetch(`count(*[_type == "actualites"])`, {}, { cache: 'no-store' })
 }
 
 export async function getParametres() {

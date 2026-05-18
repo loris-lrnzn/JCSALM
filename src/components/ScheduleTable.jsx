@@ -95,7 +95,7 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
 
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-xs tracking-widest uppercase text-club-red mb-3">03</p>
+            <p className="text-xs tracking-widest uppercase text-club-red mb-3">04</p>
             <h2 className="font-display text-5xl lg:text-6xl text-zinc-100 leading-none">HORAIRES</h2>
           </div>
           <span className="text-xs tracking-widest uppercase text-zinc-700 hidden sm:block pb-1">

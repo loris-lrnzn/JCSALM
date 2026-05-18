@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown } from 'lucide-react'
 
 const DISCIPLINES = [
@@ -16,6 +17,11 @@ export default function Navbar() {
   const [dropOpen, setDropOpen]       = useState(false)
   const [mobileDiscOpen, setMobileDiscOpen] = useState(false)
   const [scrolled, setScrolled]       = useState(false)
+  const pathname                      = usePathname()
+  const isHome                        = pathname === '/'
+  const isDiscipline                  = pathname.startsWith('/disciplines/')
+
+  const anchorHref = (anchor) => (isHome || isDiscipline) ? `#${anchor}` : `/#${anchor}`
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -40,6 +46,13 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <nav className="hidden md:flex items-center gap-10">
+
+            {/* Accueil — uniquement sur les pages secondaires */}
+            {!isHome && (
+              <Link href="/" className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
+                Accueil
+              </Link>
+            )}
 
             {/* Disciplines dropdown */}
             <div
@@ -73,13 +86,13 @@ export default function Navbar() {
               )}
             </div>
 
-            <a href="#horaires" className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
+            <a href={anchorHref('horaires')} className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
               Horaires
             </a>
-            <a href="#tarifs" className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
+            <a href={anchorHref('tarifs')} className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
               Tarifs
             </a>
-            <a href="#contact" className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
+            <a href={anchorHref('contact')} className="text-xs tracking-widest uppercase text-zinc-100 hover:text-club-red transition-colors duration-200">
               Contact
             </a>
           </nav>
@@ -98,6 +111,18 @@ export default function Navbar() {
       {/* Mobile drawer */}
       {open && (
         <div className="md:hidden bg-zinc-900/95 backdrop-blur-sm border-t border-zinc-800">
+
+          {/* Accueil — uniquement sur les pages secondaires */}
+          {!isHome && (
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between px-6 py-4 text-xs tracking-widest uppercase text-zinc-400 hover:text-club-red border-b border-zinc-800 transition-colors duration-200"
+            >
+              Accueil
+              <span className="text-zinc-700">→</span>
+            </Link>
+          )}
 
           {/* Disciplines avec sous-menu */}
           <div>
@@ -129,7 +154,7 @@ export default function Navbar() {
           </div>
 
           <a
-            href="#horaires"
+            href={anchorHref('horaires')}
             onClick={() => setOpen(false)}
             className="flex items-center justify-between px-6 py-4 text-xs tracking-widest uppercase text-zinc-400 hover:text-club-red border-b border-zinc-800 transition-colors duration-200"
           >
@@ -137,7 +162,7 @@ export default function Navbar() {
             <span className="text-zinc-700">→</span>
           </a>
           <a
-            href="#tarifs"
+            href={anchorHref('tarifs')}
             onClick={() => setOpen(false)}
             className="flex items-center justify-between px-6 py-4 text-xs tracking-widest uppercase text-zinc-400 hover:text-club-red border-b border-zinc-800 transition-colors duration-200"
           >
@@ -145,7 +170,7 @@ export default function Navbar() {
             <span className="text-zinc-700">→</span>
           </a>
           <a
-            href="#contact"
+            href={anchorHref('contact')}
             onClick={() => setOpen(false)}
             className="flex items-center justify-between px-6 py-4 text-xs tracking-widest uppercase text-zinc-400 hover:text-club-red transition-colors duration-200"
           >

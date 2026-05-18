@@ -41,7 +41,7 @@ export default function AboutSection({ parametres = null, photo = null }) {
             <p className="text-xs tracking-widest uppercase text-club-red mb-3">02</p>
             <h2 className="font-display text-5xl lg:text-6xl text-zinc-100 leading-none">LE CLUB</h2>
           </div>
-          <span className="text-xs tracking-widest uppercase text-zinc-700 hidden sm:block pb-1">Depuis 1968</span>
+          <span className="text-xs tracking-widest uppercase text-zinc-700 hidden sm:block pb-1">Depuis 1982</span>
         </div>
 
         {/* Grille principale */}
