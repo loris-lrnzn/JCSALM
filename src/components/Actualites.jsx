@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/formatDate'
 
@@ -15,7 +16,8 @@ function DisciplineTag({ discipline }) {
 function FeaturedPost({ post }) {
   const hasPhoto = !!post.photo?.asset
   return (
-    <article className="grid grid-cols-1 lg:grid-cols-2 border-b border-zinc-800 pb-0 mb-0 group">
+    <Link href={`/actualites/${post._id}`} className="block">
+    <article className="grid grid-cols-1 lg:grid-cols-2 border-b border-zinc-800 pb-0 mb-0 group cursor-pointer">
       {/* Texte */}
       <div className="flex flex-col justify-between py-10 pr-0 lg:pr-16 order-2 lg:order-1">
         <div className="flex items-center gap-4 mb-6">
@@ -35,27 +37,21 @@ function FeaturedPost({ post }) {
           )}
         </div>
 
-        {post.lien_url && (
-          <a
-            href={post.lien_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 self-start flex items-center gap-3 text-xs tracking-widest uppercase text-zinc-400 hover:text-zinc-100 transition-colors duration-200 group/link"
-          >
-            <span className="w-8 h-px bg-zinc-600 group-hover/link:w-12 group-hover/link:bg-zinc-300 transition-all duration-300" />
-            {post.lien_label || 'En savoir plus'}
-          </a>
-        )}
+        <span className="mt-8 self-start flex items-center gap-3 text-xs tracking-widest uppercase text-zinc-600 group-hover:text-zinc-300 transition-all duration-300">
+          <span className="w-6 h-px bg-zinc-700 group-hover:w-10 group-hover:bg-zinc-400 transition-all duration-300" />
+          Lire la suite
+        </span>
       </div>
 
       {/* Photo ou placeholder */}
-      <div className="relative order-1 lg:order-2 overflow-hidden" style={{ minHeight: '340px' }}>
+      <div className="relative order-1 lg:order-2 overflow-hidden" style={{ minHeight: 'clamp(200px, 45vw, 340px)' }}>
         {hasPhoto ? (
           <>
             <Image
               src={urlFor(post.photo.asset).width(800).url()}
               alt={post.titre}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-transparent lg:block hidden" />
@@ -67,32 +63,26 @@ function FeaturedPost({ post }) {
         )}
       </div>
     </article>
+    </Link>
   )
 }
 
 function CompactPost({ post }) {
   return (
-    <article className="grid grid-cols-[7rem_1fr_auto] items-center gap-6 py-5 border-b border-zinc-800/50 group hover:border-zinc-700 transition-colors duration-200">
-      <span className="text-xs text-zinc-600 tracking-wide tabular-nums">{formatDate(post.date)}</span>
-
-      <div className="min-w-0">
-        <h3 className="font-display text-xl text-zinc-300 leading-tight group-hover:text-zinc-100 transition-colors duration-200 truncate">
+    <Link href={`/actualites/${post._id}`} className="block">
+    <article className="py-5 border-b border-zinc-800/50 group hover:border-zinc-700 transition-colors duration-200 cursor-pointer">
+      <div className="flex items-center gap-3 mb-1">
+        <span className="text-xs text-zinc-600 tracking-wide tabular-nums">{formatDate(post.date)}</span>
+        <DisciplineTag discipline={post.discipline} />
+      </div>
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="font-display text-xl text-zinc-300 leading-tight group-hover:text-zinc-100 transition-colors duration-200">
           {post.titre}
         </h3>
-        {post.lien_url && (
-          <a
-            href={post.lien_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-zinc-600 hover:text-club-red transition-colors duration-200 tracking-wide"
-          >
-            {post.lien_label || '↗ Lien'}
-          </a>
-        )}
+        <span className="text-zinc-700 group-hover:text-zinc-400 transition-colors duration-200 shrink-0 text-sm">→</span>
       </div>
-
-      <DisciplineTag discipline={post.discipline} />
     </article>
+    </Link>
   )
 }
 
@@ -102,7 +92,7 @@ export default function Actualites({ posts = [], total = 0, facebook = null }) {
   const [featured, ...rest] = posts
 
   return (
-    <section id="actualites" className="bg-zinc-950 py-24 px-6 lg:px-8 border-t border-zinc-800/40">
+    <section id="actualites" className="bg-zinc-950 py-14 md:py-24 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
 
         <div className="flex items-end justify-between mb-12">

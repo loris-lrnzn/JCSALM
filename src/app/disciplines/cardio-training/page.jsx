@@ -97,7 +97,7 @@ export default async function CardioPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-24 px-6 lg:px-8 border-t border-b border-zinc-800">
+      <section className="py-12 md:py-24 px-6 lg:px-8 border-t border-b border-zinc-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100 mb-8">
@@ -135,7 +135,7 @@ export default async function CardioPage() {
       <Carousel slides={slides.length > 0 ? slides : SLIDES} />
 
       {/* Horaires */}
-      <section id="horaires" className="py-24 px-6 lg:px-8 border-b border-zinc-800">
+      <section id="horaires" className="py-12 md:py-24 px-6 lg:px-8 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-baseline justify-between border-b border-zinc-800 pb-6 mb-12">
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100">HORAIRES</h2>
@@ -159,7 +159,7 @@ export default async function CardioPage() {
                           Complet
                         </span>
                       )}
-                      <span className={`text-sm tabular-nums w-28 text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
+                      <span className={`text-sm tabular-nums sm:w-28 sm:text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
                         {slot.time}
                       </span>
                     </div>

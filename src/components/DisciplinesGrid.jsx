@@ -41,7 +41,7 @@ export default function DisciplinesGrid({ photos = {} }) {
   ]
 
   return (
-    <section id="disciplines" className="bg-zinc-950 py-24 px-6 lg:px-8">
+    <section id="disciplines" className="bg-zinc-950 py-14 md:py-24 px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
 
         <div className="flex items-end justify-between mb-16">
@@ -72,6 +72,7 @@ export default function DisciplinesGrid({ photos = {} }) {
                   src={d.photo}
                   alt={d.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
                 {/* Overlay au hover */}

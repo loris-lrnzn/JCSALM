@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getActualites, getParametres } from '@/lib/queries'
@@ -77,9 +78,9 @@ export default async function ActualitesPage() {
                 const hasPhoto = !!post.photo?.asset
                 const isJudo = post.discipline === 'Judo'
                 return (
+                  <Link key={post._id} href={`/actualites/${post._id}`} className="block group">
                   <article
-                    key={post._id}
-                    className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-0 border-b border-zinc-800/50 py-10 group"
+                    className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-0 border-b border-zinc-800/50 py-10 cursor-pointer"
                   >
                     <div className="flex flex-col justify-between pr-0 md:pr-12">
                       <div className="flex items-center gap-4 mb-4">
@@ -117,11 +118,14 @@ export default async function ActualitesPage() {
                           src={urlFor(post.photo.asset).width(640).url()}
                           alt={post.titre}
                           fill
+                          sizes="(max-width: 768px) 100vw, 320px"
+                          priority={i === 0}
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
                     )}
                   </article>
+                  </Link>
                 )
               })}
             </div>

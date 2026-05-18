@@ -123,7 +123,7 @@ export default async function JudoPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-24 px-6 lg:px-8 border-t border-b border-zinc-800">
+      <section className="py-12 md:py-24 px-6 lg:px-8 border-t border-b border-zinc-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100 mb-8">
@@ -169,7 +169,7 @@ export default async function JudoPage() {
       <Carousel slides={slides.length > 0 ? slides : undefined} />
 
       {/* Niveaux & Horaires */}
-      <section id="horaires" className="py-24 px-6 lg:px-8 border-b border-zinc-800">
+      <section id="horaires" className="py-12 md:py-24 px-6 lg:px-8 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-baseline justify-between border-b border-zinc-800 pb-6 mb-12">
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100">

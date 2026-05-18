@@ -32,7 +32,7 @@ export default function AboutSection({ parametres = null, photo = null }) {
   ]
 
   return (
-    <section className="bg-zinc-950 py-16 px-6 lg:px-8 border-t border-zinc-800/40">
+    <section className="bg-zinc-950 py-12 md:py-16 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
 
         {/* Ligne intro */}
@@ -53,6 +53,7 @@ export default function AboutSection({ parametres = null, photo = null }) {
               src={photo?.asset ? urlFor(photo.asset).width(800).url() : '/dojo.png'}
               alt="Le dojo de Senones"
               fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-zinc-950/30" />
@@ -73,11 +74,11 @@ export default function AboutSection({ parametres = null, photo = null }) {
           </div>
 
           {/* Stats */}
-          <div className="lg:col-span-1 grid grid-cols-3 lg:grid-cols-1 gap-6 lg:gap-0 lg:divide-y lg:divide-zinc-800/50">
+          <div className="lg:col-span-1 grid grid-cols-3 lg:grid-cols-1 gap-4 lg:gap-0 lg:divide-y lg:divide-zinc-800/50">
             {stats.map((s) => (
-              <div key={s.label} className="py-4 flex items-baseline gap-3">
-                <span className="font-display text-4xl text-zinc-100 tabular-nums">{s.value}</span>
-                <span className="text-xs tracking-widest uppercase text-zinc-600">{s.label}</span>
+              <div key={s.label} className="py-2 lg:py-4 flex flex-col lg:flex-row lg:items-baseline gap-1 lg:gap-3">
+                <span className="font-display text-3xl lg:text-4xl text-zinc-100 tabular-nums">{s.value}</span>
+                <span className="text-xs tracking-widest uppercase text-zinc-600 leading-tight">{s.label}</span>
               </div>
             ))}
           </div>

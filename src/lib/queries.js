@@ -67,6 +67,18 @@ export async function countActualites() {
   return client.fetch(`count(*[_type == "actualites"])`, {}, { cache: 'no-store' })
 }
 
+export async function getActualiteById(id) {
+  return client.fetch(
+    `*[_type == "actualites" && _id == $id][0] {
+      _id, titre, date, discipline, texte,
+      photo { asset },
+      lien_url, lien_label
+    }`,
+    { id },
+    { cache: 'no-store' }
+  )
+}
+
 export async function getParametres() {
   return client.fetch(`*[_type == "parametres"][0]{
     ...,

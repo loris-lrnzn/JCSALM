@@ -47,7 +47,7 @@ function Rows({ rows }) {
 
 export default function Tarifs({ rows, discipline = null, groups = null, number = null }) {
   return (
-    <section id="tarifs" className="bg-zinc-950 py-24 px-6 lg:px-8 border-t border-zinc-800/40">
+    <section id="tarifs" className="bg-zinc-950 py-14 md:py-24 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
 
         <div className="flex items-end justify-between mb-12">

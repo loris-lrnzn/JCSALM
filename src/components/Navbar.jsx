@@ -37,7 +37,7 @@ export default function Navbar() {
           {/* Logo + name */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-14 h-14 shrink-0">
-              <Image src="/logo.png" alt="SALM Judo Club" fill className="object-contain" />
+              <Image src="/logo.png" alt="SALM Judo Club" fill sizes="56px" className="object-contain" />
             </div>
             <span className="font-display text-zinc-100 text-xl tracking-wider hidden sm:block">
               Judo Club de Salm

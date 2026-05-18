@@ -90,7 +90,7 @@ function SectionHeader({ title, isJudo }) {
 
 export default function ScheduleTable({ schedule = SCHEDULE }) {
   return (
-    <section id="horaires" className="bg-zinc-950 py-24 px-6 lg:px-8 border-t border-zinc-800/40">
+    <section id="horaires" className="bg-zinc-950 py-14 md:py-24 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
 
         <div className="flex items-end justify-between mb-12">
@@ -113,7 +113,7 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
                 {section.groups.map((group) => (
                   <div
                     key={group.label}
-                    className="flex items-start justify-between gap-6 py-4 border-b border-zinc-800/50"
+                    className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-6 py-4 border-b border-zinc-800/50"
                   >
                     {/* Label */}
                     <div>
@@ -126,9 +126,9 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
                     {/* Créneaux */}
                     <div className="shrink-0 space-y-1.5">
                       {group.slots.map((slot, i) => (
-                        <div key={i} className="flex items-center gap-3 justify-end">
+                        <div key={i} className="flex items-center gap-2 sm:gap-3 sm:justify-end">
                           {slot.day && (
-                            <span className="text-xs tracking-wide uppercase text-zinc-500 w-20 text-right">
+                            <span className="text-xs tracking-wide uppercase text-zinc-500 sm:w-20 sm:text-right">
                               {slot.day}
                             </span>
                           )}
@@ -137,7 +137,7 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
                               Complet
                             </span>
                           )}
-                          <span className={`text-sm tabular-nums w-28 text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
+                          <span className={`text-sm tabular-nums sm:w-28 sm:text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
                             {slot.time}
                           </span>
                         </div>
@@ -158,7 +158,7 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
                   {section.groups.map((group) => (
                     <div
                       key={group.label}
-                      className="flex items-start justify-between gap-6 py-4 border-b border-zinc-800/50"
+                      className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-6 py-4 border-b border-zinc-800/50"
                     >
                       <div>
                         <p className="text-sm text-zinc-200">{group.label}</p>
@@ -168,13 +168,13 @@ export default function ScheduleTable({ schedule = SCHEDULE }) {
                       </div>
                       <div className="shrink-0 space-y-1.5">
                         {group.slots.map((slot, i) => (
-                          <div key={i} className="flex items-center gap-3 justify-end">
+                          <div key={i} className="flex items-center gap-2 sm:gap-3 sm:justify-end">
                             {slot.full && (
                               <span className="text-xs tracking-widest uppercase text-club-red border border-club-red/40 px-1.5 py-0.5">
                                 Complet
                               </span>
                             )}
-                            <span className={`text-sm tabular-nums w-28 text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
+                            <span className={`text-sm tabular-nums sm:w-28 sm:text-right ${slot.full ? 'text-zinc-500' : 'text-zinc-300'}`}>
                               {slot.time}
                             </span>
                           </div>

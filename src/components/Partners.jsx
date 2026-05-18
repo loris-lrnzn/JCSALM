@@ -12,7 +12,7 @@ export default function Partners({ partenaires = [] }) {
   const items = partenaires.length > 0 ? partenaires : PLACEHOLDERS
 
   return (
-    <section className="bg-zinc-950 py-20 px-6 lg:px-8 border-t border-zinc-800/40">
+    <section className="bg-zinc-950 py-14 md:py-20 px-6 lg:px-8 border-t border-zinc-800/40">
       <div className="max-w-7xl mx-auto">
 
         <div className="flex items-end justify-between mb-12">
@@ -33,6 +33,7 @@ export default function Partners({ partenaires = [] }) {
                   src={urlFor(p.logo).width(400).fit('max').format('png').url()}
                   alt={p.nom}
                   fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-contain opacity-80 brightness-110 hover:opacity-100 hover:brightness-125 transition-all duration-300"
                 />
               </div>

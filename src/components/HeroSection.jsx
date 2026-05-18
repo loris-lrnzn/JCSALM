@@ -14,6 +14,7 @@ export default function HeroSection({ photo = null }) {
         src={src}
         alt="Cours de judo — Judo Club de Salm, Senones"
         fill
+        sizes="100vw"
         className="object-cover object-center"
         style={{ transform: 'scale(1.08)', transformOrigin: 'center' }}
         priority
