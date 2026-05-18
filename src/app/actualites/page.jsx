@@ -8,8 +8,14 @@ import { urlFor } from '@/lib/sanity'
 import { formatDate } from '@/lib/formatDate'
 
 export const metadata = {
-  title: 'Actualités — Judo Club de Salm',
-  description: 'Toutes les actualités du Judo Club de Salm à Senones.',
+  title: 'Actualités',
+  description: 'Toutes les actualités du Judo Club de Salm à Senones (Vosges) — résultats, événements, informations sur le judo, le pilates et le cardio-training.',
+  alternates: { canonical: 'https://jcsalm.vercel.app/actualites' },
+  openGraph: {
+    title: 'Actualités — Judo Club de Salm',
+    description: 'Actualités du Judo Club de Salm à Senones (Vosges).',
+    url: 'https://jcsalm.vercel.app/actualites',
+  },
 }
 
 export default async function ActualitesPage() {
@@ -18,8 +24,35 @@ export default async function ActualitesPage() {
     getParametres().catch(() => null),
   ])
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Actualités — Judo Club de Salm',
+    url: 'https://jcsalm.vercel.app/actualites',
+    publisher: {
+      '@type': 'SportsClub',
+      name: 'Judo Club de Salm',
+      url: 'https://jcsalm.vercel.app',
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil',     item: 'https://jcsalm.vercel.app' },
+        { '@type': 'ListItem', position: 2, name: 'Actualités',  item: 'https://jcsalm.vercel.app/actualites' },
+      ],
+    },
+    blogPost: posts.map(p => ({
+      '@type': 'BlogPosting',
+      headline: p.titre,
+      datePublished: p.date,
+      description: p.texte || '',
+      url: 'https://jcsalm.vercel.app/actualites',
+    })),
+  }
+
   return (
     <main className="bg-zinc-950 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
       <section className="px-6 lg:px-8 pt-32 pb-24">

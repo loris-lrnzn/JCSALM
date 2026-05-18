@@ -6,8 +6,15 @@ import { urlFor } from '@/lib/sanity'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'Pilates — Judo Club de Salm',
-  description: 'Cours de Pilates à Senones — renforcement musculaire, posture et souplesse.',
+  title: 'Pilates',
+  description: 'Cours de Pilates à Senones (88210, Vosges) — renforcement musculaire, rééquilibrage postural et souplesse. Cours collectifs sur tatami, accessibles à tous.',
+  alternates: { canonical: 'https://jcsalm.vercel.app/disciplines/pilates' },
+  openGraph: {
+    title: 'Pilates — Judo Club de Salm, Senones',
+    description: 'Cours de Pilates à Senones (Vosges) — renforcement, posture et souplesse sur tatami.',
+    url: 'https://jcsalm.vercel.app/disciplines/pilates',
+    images: [{ url: '/pilates.png', width: 1200, height: 630, alt: 'Cours de Pilates — Judo Club de Salm' }],
+  },
 }
 
 const HORAIRES = [
@@ -34,8 +41,37 @@ export default async function PilatesPage() {
   const pilatesRows = tarifsPilates
     ? tarifsPilates.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
     : PILATES_ROWS
+
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil',     item: 'https://jcsalm.vercel.app' },
+        { '@type': 'ListItem', position: 2, name: 'Disciplines', item: 'https://jcsalm.vercel.app/#disciplines' },
+        { '@type': 'ListItem', position: 3, name: 'Pilates',     item: 'https://jcsalm.vercel.app/disciplines/pilates' },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SportsActivityLocation',
+      name: 'Pilates — Judo Club de Salm',
+      description: 'Cours de Pilates collectifs sur tatami à Senones — renforcement musculaire, posture et souplesse.',
+      url: 'https://jcsalm.vercel.app/disciplines/pilates',
+      address: { '@type': 'PostalAddress', streetAddress: 'Rue du Breuil', addressLocality: 'Senones', postalCode: '88210', addressCountry: 'FR' },
+      geo: { '@type': 'GeoCoordinates', latitude: 48.3836, longitude: 6.9839 },
+      sport: 'Pilates',
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Tuesday',  opens: '17:15', closes: '19:30' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '17:30', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '10:00' },
+      ],
+    },
+  ]
+
   return (
     <main className="bg-zinc-950 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
       {/* Hero */}

@@ -6,8 +6,15 @@ import { urlFor } from '@/lib/sanity'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'Cardio-Training — Judo Club de Salm',
-  description: 'Séances de Cardio-Training à Senones — endurance, tonicité et condition physique.',
+  title: 'Cardio-Training',
+  description: 'Séances de Cardio-Training à Senones (88210, Vosges) — endurance, renforcement musculaire et condition physique. Battle ropes, cardio sur tatami. Accessible à tous niveaux.',
+  alternates: { canonical: 'https://jcsalm.vercel.app/disciplines/cardio-training' },
+  openGraph: {
+    title: 'Cardio-Training — Judo Club de Salm, Senones',
+    description: 'Cardio-Training à Senones (Vosges) — endurance et renforcement musculaire sur tatami.',
+    url: 'https://jcsalm.vercel.app/disciplines/cardio-training',
+    images: [{ url: '/cardio.png', width: 1200, height: 630, alt: 'Cardio-Training — Judo Club de Salm' }],
+  },
 }
 
 const HORAIRES = [
@@ -32,8 +39,35 @@ export default async function CardioPage() {
   const cardioRows = tarifsCardio
     ? tarifsCardio.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
     : CARDIO_ROWS
+
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil',          item: 'https://jcsalm.vercel.app' },
+        { '@type': 'ListItem', position: 2, name: 'Disciplines',      item: 'https://jcsalm.vercel.app/#disciplines' },
+        { '@type': 'ListItem', position: 3, name: 'Cardio-Training',  item: 'https://jcsalm.vercel.app/disciplines/cardio-training' },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SportsActivityLocation',
+      name: 'Cardio-Training — Judo Club de Salm',
+      description: 'Séances de Cardio-Training à Senones — battle ropes, endurance et renforcement musculaire sur tatami.',
+      url: 'https://jcsalm.vercel.app/disciplines/cardio-training',
+      address: { '@type': 'PostalAddress', streetAddress: 'Rue du Breuil', addressLocality: 'Senones', postalCode: '88210', addressCountry: 'FR' },
+      geo: { '@type': 'GeoCoordinates', latitude: 48.3836, longitude: 6.9839 },
+      sport: 'Fitness',
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Monday', opens: '18:00', closes: '19:15' },
+      ],
+    },
+  ]
+
   return (
     <main className="bg-zinc-950 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
       {/* Hero */}

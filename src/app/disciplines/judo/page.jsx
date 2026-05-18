@@ -6,8 +6,15 @@ import { getGalerie, getTarifs } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
 
 export const metadata = {
-  title: 'Judo — Judo Club de Salm',
-  description: "Cours de judo à Senones pour tous les niveaux, de l'éveil au senior.",
+  title: 'Judo',
+  description: "Cours de judo à Senones (88210, Vosges) — éveil judo, enfants, ados et adultes. Tous niveaux, ceinture blanche à noire. Club labellisé France Judo Argent.",
+  alternates: { canonical: 'https://jcsalm.vercel.app/disciplines/judo' },
+  openGraph: {
+    title: 'Judo — Judo Club de Salm, Senones',
+    description: "Cours de judo à Senones (Vosges) — tous niveaux, de l'éveil au senior.",
+    url: 'https://jcsalm.vercel.app/disciplines/judo',
+    images: [{ url: '/judo.png', width: 1200, height: 630, alt: 'Cours de Judo — Judo Club de Salm' }],
+  },
 }
 
 const NIVEAUX = [
@@ -56,8 +63,35 @@ export default async function JudoPage() {
   const judoRows = tarifsJudo
     ? tarifsJudo.lignes.map(l => ({ label: l.label, price: l.prix, note: l.note }))
     : JUDO_ROWS
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil',     item: 'https://jcsalm.vercel.app' },
+        { '@type': 'ListItem', position: 2, name: 'Disciplines', item: 'https://jcsalm.vercel.app/#disciplines' },
+        { '@type': 'ListItem', position: 3, name: 'Judo',        item: 'https://jcsalm.vercel.app/disciplines/judo' },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SportsActivityLocation',
+      name: 'Judo — Judo Club de Salm',
+      description: "Cours de judo à Senones — de l'éveil judo au niveau senior, tous niveaux acceptés.",
+      url: 'https://jcsalm.vercel.app/disciplines/judo',
+      address: { '@type': 'PostalAddress', streetAddress: 'Rue du Breuil', addressLocality: 'Senones', postalCode: '88210', addressCountry: 'FR' },
+      geo: { '@type': 'GeoCoordinates', latitude: 48.3836, longitude: 6.9839 },
+      sport: 'Judo',
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Wednesday', opens: '14:15', closes: '20:30' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday',    opens: '17:00', closes: '21:00' },
+      ],
+    },
+  ]
+
   return (
     <main className="bg-zinc-950 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
       {/* Hero */}
