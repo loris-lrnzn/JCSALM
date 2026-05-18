@@ -13,7 +13,13 @@ export const parametres = {
     { name: 'nb_ceintures_noires', title: 'Ceintures noires', type: 'string' },
     {
       name: 'photo_hero',
-      title: 'Photo Hero (page d\'accueil)',
+      title: 'Photo Hero — Desktop (paysage)',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'photo_hero_mobile',
+      title: 'Photo Hero — Mobile (portrait)',
       type: 'image',
       options: { hotspot: true },
     },

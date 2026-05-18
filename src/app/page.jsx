@@ -104,7 +104,7 @@ export default async function Home() {
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
-      <HeroSection photo={parametres?.photo_hero} />
+      <HeroSection photo={parametres?.photo_hero} photoMobile={parametres?.photo_hero_mobile} />
       <DisciplinesGrid photos={{ judo: parametres?.photo_judo, pilates: parametres?.photo_pilates, cardio: parametres?.photo_cardio }} />
       <AboutSection parametres={parametres} photo={parametres?.photo_about} />
       <Actualites posts={actualites} total={totalActualites} facebook={parametres?.facebook} />

@@ -1,21 +1,32 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
 
-export default function HeroSection({ photo = null }) {
-  const src = photo?.asset ? urlFor(photo.asset).width(1920).url() : '/hero.png'
+export default function HeroSection({ photo = null, photoMobile = null }) {
+  const src       = photo?.asset       ? urlFor(photo.asset).width(1920).url()       : '/hero.png'
+  const srcMobile = photoMobile?.asset ? urlFor(photoMobile.asset).width(800).url()  : src
 
   return (
     <section
       className="relative overflow-hidden pt-20"
       style={{ height: '75vh', minHeight: '500px' }}
     >
-      {/* Photo */}
+      {/* Photo mobile */}
+      <Image
+        src={srcMobile}
+        alt="Cours de judo — Judo Club de Salm, Senones"
+        fill
+        sizes="100vw"
+        className="object-cover object-center md:hidden"
+        style={{ transform: 'scale(1.08)', transformOrigin: 'center' }}
+        priority
+      />
+      {/* Photo desktop */}
       <Image
         src={src}
         alt="Cours de judo — Judo Club de Salm, Senones"
         fill
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-center hidden md:block"
         style={{ transform: 'scale(1.08)', transformOrigin: 'center' }}
         priority
       />

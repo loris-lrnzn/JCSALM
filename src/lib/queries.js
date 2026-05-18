@@ -83,6 +83,7 @@ export async function getParametres() {
   return client.fetch(`*[_type == "parametres"][0]{
     ...,
     photo_hero { asset },
+    photo_hero_mobile { asset },
     photo_about { asset },
     photo_judo { asset },
     photo_pilates { asset },
