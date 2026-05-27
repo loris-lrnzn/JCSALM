@@ -17,7 +17,7 @@ export default function Partners({ partenaires = [] }) {
 
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-xs tracking-widest uppercase text-club-red mb-3">06</p>
+            <p className="text-xs tracking-widest uppercase text-club-red mb-3">07</p>
             <h2 className="font-display text-4xl lg:text-5xl text-zinc-100 leading-none">PARTENAIRES</h2>
           </div>
           <span className="text-xs tracking-widest uppercase text-zinc-700 hidden sm:block pb-1">
