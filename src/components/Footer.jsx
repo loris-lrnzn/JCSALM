@@ -13,7 +13,7 @@ export default function Footer({ parametres = null }) {
   const facebook  = parametres?.facebook || DEFAULTS.facebook
 
   return (
-    <footer id="contact" className="bg-zinc-950 border-t border-zinc-800">
+    <footer className="bg-zinc-950 border-t border-zinc-800">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
         <div>
           <Image src="/logo.png" alt="SALM Judo Club" width={52} height={52} className="mb-5 object-contain" />

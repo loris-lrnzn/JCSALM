@@ -9,6 +9,7 @@ import Tarifs, { ALL_DISCIPLINES } from '@/components/Tarifs'
 import Partners from '@/components/Partners'
 import Actualites from '@/components/Actualites'
 import Agenda from '@/components/Agenda'
+import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 import { getPartenaires, getTarifs, getHoraires, getParametres, getActualites, countActualites, getEvenements } from '@/lib/queries'
 
@@ -114,6 +115,7 @@ export default async function Home() {
       <ScheduleTable schedule={schedule || undefined} />
       <Tarifs groups={tarifsGroups} number="06" />
       <Partners partenaires={partenaires} />
+      <ContactSection parametres={parametres} />
       <Footer parametres={parametres} />
     </main>
   )
