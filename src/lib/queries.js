@@ -21,25 +21,29 @@ export async function getHoraires() {
 }
 
 export async function getTarifs() {
-  const data = await client.fetch(`
-    *[_type == "tarifs"] {
+  const data = await client.fetch(
+    `*[_type == "tarifs"] {
       discipline,
       lignes[] { label, prix, note }
-    }
-  `)
+    }`,
+    {},
+    { cache: 'no-store' }
+  )
   return data.sort((a, b) =>
     DISCIPLINE_ORDER.indexOf(a.discipline) - DISCIPLINE_ORDER.indexOf(b.discipline)
   )
 }
 
 export async function getPartenaires() {
-  return client.fetch(`
-    *[_type == "partenaires"] | order(ordre asc) {
+  return client.fetch(
+    `*[_type == "partenaires"] | order(ordre asc) {
       nom,
       logo,
       url
-    }
-  `)
+    }`,
+    {},
+    { cache: 'no-store' }
+  )
 }
 
 export async function getGalerie(discipline) {
@@ -94,13 +98,17 @@ export async function getEvenements({ limit } = {}) {
 }
 
 export async function getParametres() {
-  return client.fetch(`*[_type == "parametres"][0]{
-    ...,
-    photo_hero { asset },
-    photo_hero_mobile { asset },
-    photo_about { asset },
-    photo_judo { asset },
-    photo_pilates { asset },
-    photo_cardio { asset }
-  }`)
+  return client.fetch(
+    `*[_type == "parametres"][0]{
+      ...,
+      photo_hero { asset },
+      photo_hero_mobile { asset },
+      photo_about { asset },
+      photo_judo { asset },
+      photo_pilates { asset },
+      photo_cardio { asset }
+    }`,
+    {},
+    { cache: 'no-store' }
+  )
 }
