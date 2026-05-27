@@ -8,8 +8,9 @@ import ScheduleTable from '@/components/ScheduleTable'
 import Tarifs, { ALL_DISCIPLINES } from '@/components/Tarifs'
 import Partners from '@/components/Partners'
 import Actualites from '@/components/Actualites'
+import Agenda from '@/components/Agenda'
 import Footer from '@/components/Footer'
-import { getPartenaires, getTarifs, getHoraires, getParametres, getActualites, countActualites } from '@/lib/queries'
+import { getPartenaires, getTarifs, getHoraires, getParametres, getActualites, countActualites, getEvenements } from '@/lib/queries'
 
 const DISCIPLINE_ORDER = ['Judo', 'Pilates', 'Cardio-Training']
 
@@ -34,13 +35,14 @@ function transformHoraires(data) {
 }
 
 export default async function Home() {
-  const [partenaires, tarifs, horaires, parametres, actualites, totalActualites] = await Promise.all([
+  const [partenaires, tarifs, horaires, parametres, actualites, totalActualites, evenements] = await Promise.all([
     getPartenaires().catch(() => []),
     getTarifs().catch(() => []),
     getHoraires().catch(() => []),
     getParametres().catch(() => null),
     getActualites({ limit: 4 }).catch(() => []),
     countActualites().catch(() => 0),
+    getEvenements().catch(() => []),
   ])
 
   const tarifsGroups = tarifs.length > 0
@@ -108,8 +110,9 @@ export default async function Home() {
       <DisciplinesGrid photos={{ judo: parametres?.photo_judo, pilates: parametres?.photo_pilates, cardio: parametres?.photo_cardio }} />
       <AboutSection parametres={parametres} photo={parametres?.photo_about} />
       <Actualites posts={actualites} total={totalActualites} facebook={parametres?.facebook} />
+      <Agenda events={evenements} />
       <ScheduleTable schedule={schedule || undefined} />
-      <Tarifs groups={tarifsGroups} number="05" />
+      <Tarifs groups={tarifsGroups} number="06" />
       <Partners partenaires={partenaires} />
       <Footer parametres={parametres} />
     </main>

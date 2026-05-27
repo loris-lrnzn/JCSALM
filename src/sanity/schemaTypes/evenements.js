@@ -1,0 +1,20 @@
+export const evenements = {
+  name: 'evenements',
+  title: 'Événements',
+  type: 'document',
+  fields: [
+    { name: 'titre',       type: 'string' },
+    { name: 'date_debut',  type: 'date' },
+    { name: 'date_fin',    type: 'date' },
+    { name: 'categorie',   type: 'string' },
+    { name: 'niveau',      type: 'string' },
+    { name: 'lieu',        type: 'string' },
+    { name: 'adresse',     type: 'string' },
+    { name: 'ville',       type: 'string' },
+    { name: 'code_postal', type: 'string' },
+    { name: 'discipline',  type: 'string' },
+    { name: 'annule',      type: 'boolean' },
+    { name: 'lien_url',    type: 'url' },
+    { name: 'description', type: 'text' },
+  ],
+}

@@ -79,6 +79,20 @@ export async function getActualiteById(id) {
   )
 }
 
+export async function getEvenements({ limit } = {}) {
+  const today = new Date().toISOString().split('T')[0]
+  const slice = limit ? `[0...${limit}]` : ''
+  return client.fetch(
+    `*[_type == "evenements" && date_debut >= $today] | order(date_debut asc)${slice} {
+      _id, titre, date_debut, date_fin, categorie, niveau,
+      lieu, ville, code_postal, adresse, discipline,
+      annule, lien_url, description
+    }`,
+    { today },
+    { cache: 'no-store' }
+  )
+}
+
 export async function getParametres() {
   return client.fetch(`*[_type == "parametres"][0]{
     ...,

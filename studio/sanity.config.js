@@ -1,6 +1,7 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { schemaTypes } from './schemaTypes'
+import { csvImportPlugin } from './plugins/csvImport'
 
 const DISCIPLINES = [
   { label: 'Judo',            id: 'judo' },
@@ -14,6 +15,7 @@ export default defineConfig({
   projectId: '0q69j8xd',
   dataset: 'production',
   plugins: [
+    csvImportPlugin(),
     structureTool({
       structure: (S) =>
         S.list()

@@ -20,6 +20,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# CSV d'import temporaires
+public/*.csv
+
 # editor
 .vscode/*
 !.vscode/extensions.json
