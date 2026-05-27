@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import 'leaflet/dist/leaflet.css'
 
 const DOJO = [48.39415812948277, 6.975715291354678]
 
@@ -22,14 +23,6 @@ export default function DojoMap() {
       if (cancelled || !containerRef.current) return
 
       const L = mod.default
-
-      // CSS Leaflet
-      if (!document.querySelector('link[href*="leaflet"]')) {
-        const link = document.createElement('link')
-        link.rel  = 'stylesheet'
-        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'
-        document.head.appendChild(link)
-      }
 
       // Nettoyer toute instance précédente sur ce container
       if (mapRef.current) {
